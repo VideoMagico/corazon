@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un Recuerdo</title>
+
+<style>
+  body {
+    margin: 0;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+  }
+
+  video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .mensaje {
+    position: absolute;
+    bottom: 40px;
+    text-align: center;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    opacity: 0.8;
+  }
+
+  .sonidoInfo {
+    position: absolute;
+    top: 30px;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+
+<body>
+
+<video id="video">
+  <source src="mano.mp4" type="video/mp4">
+</video>
+
+<div class="mensaje" id="mensajeTexto">
+  UN MOMENTO QUE VIVE PARA SIEMPRE
+</div>
+
+<div class="sonidoInfo" id="infoSonido">
+  Toca la pantalla para activar sonido
+</div>
+
+<script>
+
+  // 🔘 INTERRUPTORES
+  const autoplay = true;     // true / false
+  const sonido = false;      // true = empieza con sonido (NO funciona en móviles)
+  const bucle = false;        // true / false
+  const mostrarMensaje = true;
+
+  const video = document.getElementById("video");
+  const mensaje = document.getElementById("mensajeTexto");
+  const infoSonido = document.getElementById("infoSonido");
+
+  // Aplicar bucle
+  video.loop = bucle;
+
+  // Aplicar sonido inicial
+  video.muted = !sonido;
+
+  // Mostrar / ocultar mensaje
+  if (!mostrarMensaje) {
+    mensaje.style.display = "none";
+  }
+
+  // Autoplay
+  if (autoplay) {
+    video.play().catch(() => {});
+  }
+
+  // Activar sonido al tocar
+  document.body.addEventListener("click", function() {
+    if (!sonido) {
+      video.muted = false;
+      video.play();
+      infoSonido.style.display = "none";
+    }
+  });
+
+  // Si el sonido empieza activado, ocultamos aviso
+  if (sonido) {
+    infoSonido.style.display = "none";
+  }
+
+</script>
+
+<script data-goatcounter="https://fotomagica.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
